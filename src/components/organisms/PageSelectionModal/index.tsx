@@ -2,6 +2,7 @@ import { Button, Divider } from "../../atoms";
 import { PageSelectionItem } from "../../molecules/PageSelectionItem";
 import { PageSelectionList } from "../../molecules/PageSelectionList";
 import { usePageSelection, Page } from "../../../hooks";
+import toast from "react-hot-toast";
 
 interface Props {
     initialPages: Page[];
@@ -12,7 +13,8 @@ export const PageSelectionModal = ({ initialPages }: Props) => {
 
     const handleDone = () => {
         const selected = pages.filter((page) => page.isChecked).map((p) => p.title);
-        console.log(selected);
+        if ( selected.length === 0 ) return toast.error("Page not selected")
+        toast.success(`Selected pages: ${selected.join(", ")}`);
     };
 
     return (
